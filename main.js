@@ -3,16 +3,26 @@ function tocaSom(idElementoAudio){
 };
 
 const listaDeTeclas = document.querySelectorAll('.tecla');
-const listaDeAudio = document.querySelectorAll('audio');
 
-let contador = 0;
+for(let contador = 0; contador < listaDeTeclas.length; contador++) {
 
-while(contador < listaDeTeclas.length){
-    const instrumento = listaDeTeclas[contador].classList[1];
-    console.log(instrumento)
+    const tecla = listaDeTeclas[contador];
+    const instrumento = tecla.classList[1];
+    
+    const idAudio = `#som_${instrumento}`;
 
-    listaDeTeclas[contador].onclick = function (){
-        tocaSom('#som_' + instrumento);
+    tecla.onclick = function (){
+        tocaSom(idAudio);
     };
-    contador += 1;
-}
+
+    tecla.onkeydown = function(evento){
+        if(evento.code === 'Space' || evento.code === 'Enter'){
+            tecla.classList.add('ativa');
+        };
+    };
+    tecla.onkeyup = function(evento){
+        if(evento.code === 'Space' || evento.code === 'Enter'){
+            tecla.classList.remove('ativa');
+        };
+    };
+};
